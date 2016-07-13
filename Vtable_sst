@@ -1,0 +1,11 @@
+GRIB1| Level| From |  To  | metgrid  | metgrid | metgrid                                 |GRIB2|GRIB2|GRIB2|GRIB2|
+Param| Type |Level1|Level2| Name     | Units   | Description                             |Discp|Catgy|Param|Level|
+-----+------+------+------+----------+---------+-----------------------------------------+-----------------------+
+     |   0  |   0  |      | SST      | K       | Sea-surface temperature                 |  0  |  0  |   0 |   1 |
+-----+------+------+------+----------+---------+-----------------------------------------+-----------------------+
+#
+#  Vtable for NCAR/Research Data Archive dataset 093.0
+#  http://rda.ucar.edu/datasets/ds093.0/
+#  rdahelp@ucar.edu
+#
+

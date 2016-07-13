@@ -1,0 +1,41 @@
+&share
+ wrf_core = 'ARW',
+ max_dom = 3,
+ start_date = '2015-01-01_00:00:00','2015-01-01_00:00:00','2015-01-01_00:00:00',
+ end_date  = '2015-01-01_18:00:00','2015-01-01_18:00:00','2015-01-01_18:00:00',
+ interval_seconds = 21600
+ io_form_geogrid = 2,
+/
+
+&geogrid
+parent_id         = 1,1,2,1,1,1,1,1,1,1,
+ parent_grid_ratio = 1,5,3,5,5,5,5,5,5,5,
+  i_parent_start    = 1,32,30,83,57,22,47,72,49,27,
+ j_parent_start    = 1,31,32,86,75,35,25,145,225,63,
+ e_we          = 82,96,109,26,121,121,96,136,151,131,
+ e_sn          = 81,101,112,116,116,116,156,121,101,111,
+geog_data_res     = 'modis_30s+30s','modis_30s+30s','modis_30s+30s','modis_30s+30s','modis_30s+30s','modis_30s+30s','modis_30s+30s','modis_30s+30s','modis_30s+30s','modis_30s+30s',
+ dx = 15000,
+ dy = 15000,
+ map_proj = 'lambert',
+ ref_lat   = -19.92,
+ ref_lon   = -43.93,
+ truelat1  =  -18.0,
+ truelat2  =  -22.0,
+ stand_lon = -44.0,
+ geog_data_path = '/home/junior/wrf/geog'
+ opt_geogrid_tbl_path= '/home/junior/wrf/joe_cfsr/WPS/geogrid'
+/
+
+&ungrib
+ out_format = 'WPS',
+ prefix = 'PLEVS',
+/
+
+&metgrid
+ fg_name = 'SFLUX','PLEVS','SST'
+ io_form_metgrid = 2, 
+ !opt_output_from_metgrid_path= '/media/Seagate\ Expansion\ Drive/wrf_cfsr/metfiles'
+/
+
+
