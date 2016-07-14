@@ -8,10 +8,10 @@ MES=01
 DIA=01
 
 datein=$(date -d "2014-12-31")
-
+#o dia 31/12/2014 precisa ser feito manualmente pq utiliza prev de 6h no surface
 skip() {
-
-for i in `seq  1 31`; do
+# os i=1 e 2 foram feitos manualmente
+for i in `seq  3 31`; do
 
 #for d in `seq 1 5 `; do
 date0=$(date -d "$datein +$(( ${i} )) days")
@@ -21,28 +21,18 @@ date0=`date -d "$date0" +%Y%m%d`
 date1=`date -d "$date1" +%Y%m%d`
 ano=`date -d "$date0" +%Y`
 
-#echo ${date0}
-#echo ${date1}
-
 anos=`date -d "$date0" +%Y`
 mess=`date -d "$date0" +%m`
 dias=`date -d "$date0" +%d`
 
 datae=`date -d "${date0} 0 days"`
-#echo ${datae}
-
 anoe=`date -d "${datae}" +%Y`
-
 mese=`date -d "${datae}" +%m`
-
 diae=`date -d "${datae}" +%d`
 
-#echo final  $anoe $mese $diae
 
-#read
 
 dated=$(date -d "$datae")
-#dated=$(date -d "$dated" +%Y%m%d)
 dated=`date -d "$datae" +%Y%m%d`
 
 datedd=$(date -d "$dated +$((1)) days")
@@ -56,9 +46,9 @@ echo $datedd 'data posterior'
 echo $dateddd 'data anterior'
 echo
 
-down(){
 #aqui ele abaixa os aqruivos de sst e surface
 sleep 1
+cd ${DIR_main}
 ./get_surface_cfsr_2011_2015.py funceme $dated 0 $ano
 mv  cdas1.${dated}.sfluxgrbf.tar surface/
 cd surface
@@ -71,15 +61,8 @@ mv cdas1.t06z.sfluxgrbf06.grib2 surface_${dated}_12.grib2
 mv cdas1.t12z.sfluxgrbf06.grib2 surface_${dated}_18.grib2
 mv cdas1.t18z.sfluxgrbf06.grib2 surface_${datedd}_00.grib2
 rm -fv cdas1.t*
-cd ..
 
-#./get_sst_cfsr_2011_2015.py funceme $dated 0 $ano
-#mv cdas1.${dated}.sfluxgrbf.tar sst/
-#cd sst
-#tar -xvf cdas1.${dated}.sfluxgrbf.tar
-#rm -f cdas1.${dated}.sfluxgrbf.tar
-#cd ..
-
+cd ${DIR_main}
 ./get_pressure_cfsr_2011_2015.py funceme $dated 0 $ano
 mv cdas1.${dated}.pgrbh.tar pressure/
 cd pressure
@@ -91,10 +74,8 @@ mv cdas1.t06z.pgrbhanl.grib2 pressure_${dated}_06.grib2
 mv cdas1.t12z.pgrbhanl.grib2 pressure_${dated}_12.grib2
 mv cdas1.t18z.pgrbhanl.grib2 pressure_${dated}_18.grib2
 rm -f cdas1.t*
-cd ..
+cd ${DIR_main}
 
-}
-down
 
 #done
 
@@ -102,10 +83,10 @@ cd $DIR_WPS
 for vez in pressure sst surface ; do
    if [ $vez == sst  ]; then
            rm -f GRIBFILE*
-     ./link_grib.csh ${DIR_main}/surface/surface_*
+     ./link_grib.csh ${DIR_main}/surface/surface_${dated}*
    elif [ $vez == surface ] ; then
      rm -f GRIBFILE*
-                 ./link_grib.csh ${DIR_main}/surface/surface_*
+                 ./link_grib.csh ${DIR_main}/surface/surface_${dated}*
    else
      rm -f GRIBFILE*
      ./link_grib.csh ${DIR_main}/${vez}/${vez}_*
@@ -119,7 +100,7 @@ for vez in pressure sst surface ; do
       file=SST  ; fi
    if [ "${vez}" == "surface" ]; then
       file=SFLUX  ; fi
-   sed "s/xfilex/${file}/g" ${DIR_main}/namelist.wps_cat_bh > namelist.wps
+   sed "s/xfilex/${file}/g" ${DIR_main}/namelist.wps-cat > namelist.wps
    sed -i "s/xanosx/${anos}/g" namelist.wps
    sed -i "s/xmessx/${mess}/g" namelist.wps
    sed -i "s/xdiasx/${dias}/g" namelist.wps
@@ -130,8 +111,11 @@ for vez in pressure sst surface ; do
 ./ungrib.exe
 done
 ./metgrid.exe
-rm -f FILE*
-rm -f GRIBFIL
+rm -f PLEV*
+rm -f SST*
+rm -f SFLUX*
+rm -f GRIBFIL*
+
 mv met_em.d* /media/Seagate\ Expansion\ Drive/wrf_cfsr/metfiles/
 done # end loop bloco de arquivos CFSR
 

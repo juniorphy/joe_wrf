@@ -1,8 +1,8 @@
 &share
  wrf_core = 'ARW',
  max_dom = 3,
- start_date = '2015-01-01_00:00:00','2015-01-01_00:00:00','2015-01-01_00:00:00',
- end_date  = '2015-01-01_18:00:00','2015-01-01_18:00:00','2015-01-01_18:00:00',
+ start_date = 'xanosx-xmessx-xdiasx_00:00:00','xanosx-xmessx-xdiasx_00:00:00','xanosx-xmessx-xdiasx_00:00:00',
+ end_date  = 'xanoex-xmesex-xdiaex_18:00:00','xanoex-xmesex-xdiaex_18:00:00','xanoex-xmesex-xdiaex_18:00:00',
  interval_seconds = 21600
  io_form_geogrid = 2,
 /
@@ -29,7 +29,7 @@ geog_data_res     = 'modis_30s+30s','modis_30s+30s','modis_30s+30s','modis_30s+3
 
 &ungrib
  out_format = 'WPS',
- prefix = 'PLEVS',
+ prefix = 'xfilex',
 /
 
 &metgrid
