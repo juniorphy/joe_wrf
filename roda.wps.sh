@@ -11,7 +11,7 @@ datein=$(date -d "2014-12-31")
 #o dia 31/12/2014 precisa ser feito manualmente pq utiliza prev de 6h no surface
 skip() {
 # os i=1 e 2 foram feitos manualmente
-for i in `seq  3 31`; do
+for i in `seq  32 91`; do
 
 #for d in `seq 1 5 `; do
 date0=$(date -d "$datein +$(( ${i} )) days")
